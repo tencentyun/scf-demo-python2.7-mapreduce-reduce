@@ -1,0 +1,26 @@
+Resources:
+  default:
+    Type: TencentCloud::Serverless::Namespace
+    mapreduce_reduce:
+      Type: TencentCloud::Serverless::Function
+      Properties:
+        CodeUri: ./mapreduce_reduce
+        Description: This is one of the MapReduce function which is map_function
+        Environment:
+          Variables:
+            ENV_FIRST: env1
+            ENV_SECOND: env2
+        Handler: reduce_function.main_handler
+        MemorySize: 128
+        {%- if cookiecutter.runtime == 'Python2.7' %}
+        Runtime: Python2.7
+        {%- elif cookiecutter.runtime == 'Python3.6' %}
+        Runtime: Python3.6
+        {%- else %}
+        Runtime: Python3.6
+        {%- endif %}
+        Timeout: 5
+
+Globals:
+  Function:
+    Timeout: 10
